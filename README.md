@@ -1,7 +1,17 @@
 ## 大标题测试
 代码测试
-~~~javascript
+
+
+
 ```
+    - `number`
+    - `boolean`
+    - `null`
+    - `undefined`
+    - `symbol`
+    - `bigint`
+
+    ```javascript
     const foo = 1;
     let bar = foo;
 
@@ -9,7 +19,9 @@
 
     console.log(foo, bar); // => 1, 9
     ```
-~~~
+```
+
+
 
 > 引用测试www.baidu.com
 
