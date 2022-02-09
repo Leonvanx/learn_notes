@@ -5,16 +5,18 @@
 - `boolean`
 - `null`
 
-```
-    ```javascript
-    const foo = 1;
-    let bar = foo;
 
-    bar = 9;
-
-    console.log(foo, bar); // => 1, 9
-    ```
 ```
+<script>
+export default {
+  name: 'HelloWorld',
+  inheritAttrs: false,
+}
+</script>
+```
+
+
+
 
 > 引用测试www.baidu.com
 
