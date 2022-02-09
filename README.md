@@ -1,8 +1,15 @@
 ## 大标题测试
 代码测试
-<template>
-  <HelloWorld title="我是title"/>
-</template>
+```
+```javascript
+    const foo = 1;
+    let bar = foo;
+
+    bar = 9;
+
+    console.log(foo, bar); // => 1, 9
+    ```
+```
 
 > 引用测试www.baidu.com
 
@@ -15,3 +22,4 @@
 链接测试🔗 
 
  - [ES5 (Deprecated)](https://github.com/airbnb/javascript/tree/es5-deprecated/es5)
+
