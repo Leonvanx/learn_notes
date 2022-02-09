@@ -6,13 +6,26 @@
 - `null`
 
 
-```
-<script>
-export default {
-  name: 'HelloWorld',
-  inheritAttrs: false,
+```javascript
+function getKey(k) {
+  return `a key named ${k}`;
 }
-</script>
+
+// bad
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+};
+obj[getKey('enabled')] = true;
+
+// good
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+  [getKey('enabled')]: true,
+};
+let a = 1;
+
 ```
 
 
