@@ -1,14 +1,16 @@
-# Catalogs
+# TOC
 1. [一些注意的点](#一些注意的点)
-
 2. [模仿Mac浏览器滚动条样式](#模仿Mac浏览器滚动条样式)
-
 3. [定位实现居中](#定位实现居中)  
+4. [子元素浮动造成父元素高度塌陷问题](#子元素浮动造成父元素高度塌陷问题)
    
 
 ## 一些注意的点
 1. 为第一个子元素设置margin-top时，会作用到父元素上导致上外边距溢出，解决办法：通过伪类给子元素增加一个空的table元素，或者改用padding-top。
 2. 利用定位实现子元素的偏移时，父元素请设置对应宽高，否则效果可能不如预期.
+3. 英文不会自动换行的解决办法，设置word-break属性为:break-all（按每个字母换行），break-word（按每个单词换行）。
+4. 类似element UI框架的各种组件弹出框，修改其样式需要在style标签最顶层定义class类，因为默认并不在app.vue层级。
+5. 使用el-input的number类型组件时，强行输入中文会发现光标错位，解决办法：组件的line-height给1。
 
 **[⬆ back to top](#catalogs)**
 
@@ -34,7 +36,7 @@
 ## 定位实现居中
 > 水平垂直居中
 
-```css
+```csss
 .center{
   position: relative;
   transform: translateX(-50%) translateY(-50%);
@@ -61,5 +63,23 @@
 }
 ```
 **[⬆ back to top](#catalogs)**
+
+## 子元素浮动造成父元素高度塌陷问题
+解决办法：
+  1. 在父元素利用伪类清除浮动。（推荐）
+  ```css
+  .parent::after {
+		display: block;
+		visibility: hidden;
+		height: 0;
+		font-size: 0;
+		content: ".";
+		clear: both;
+	}
+  ```
+  2. 父元素设置overflow属性。  
+  3. 绝对定位。
+
+
 
 

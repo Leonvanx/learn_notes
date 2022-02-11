@@ -1,0 +1,27 @@
+<div class="parent">
+	<div class="son">
+	</div>
+</div>
+<style>
+	.parent {
+		width: 1200px;
+		border: 1px solid skyblue;
+		margin: auto;
+	}
+
+	.son {
+		border: 1px solid gold;
+		float: left;
+		width: 1200px;
+		height: 300px;
+	}
+
+	.parent::after {
+		display: block;
+		visibility: hidden;
+		height: 0;
+		font-size: 0;
+		content: ".";
+		clear: both;
+	}
+</style>
