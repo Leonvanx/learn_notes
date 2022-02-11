@@ -1,5 +1,8 @@
 #TOC
-1. [一些注意的点](#一些注意的点)
+- [一些注意的点](#一些注意的点)
+- [一些常用ES6语法](#一些常用es6语法)
+	- [数组](#数组)
+	- [对象](#对象)
 
 ## 一些注意的点
 1. 时刻注意引用数据类型赋值的问题。
@@ -9,30 +12,9 @@
 **[⬆ back to top](#TOC)**
 
 ## 一些常用ES6语法
-1. 深拷贝一个对象
-```javascript
-Object.assign(objA,objB);
-```
-2. 数组便利
-```javascript
-Object.keys(Array).forEach((key)=>{
-	this.Array[key]
-})
-```
-3. 数组
-```javascript
-this.arr.map((el,index)=>{
-	if(this.arr2.find(item=>{
-		item.id == el.id
-	})){
+### 数组
+1. 扩展运算符
 
-	}
-})
-```
-4. 1
-```javascript
-var newArr  = arr.map(item=>{
-	key:item.a,
-	value:item.b
-})
-```
+
+
+### 对象
