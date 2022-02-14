@@ -1,8 +1,12 @@
 #TOC
+
 - [一些注意的点](#一些注意的点)
 - [一些常用ES6语法](#一些常用es6语法)
 	- [数组部分](#数组部分)
-		- [用法](#用法)
+		- [扩展运算符](#扩展运算符)
+		- [find( )和findIndex( )](#find(),findIndex())
+		- [entries(),keys() 和 values()](#entries()，keys() 和 values())
+		- [includes()](#includes())
 	- [对象部分](#对象部分)
 
 ## 一些注意的点
@@ -14,8 +18,9 @@
 
 ## 一些常用ES6语法
 ### 数组部分
-1. 扩展运算符
-#### 用法
+
+#### 扩展运算符
+
 * 函数调用
 
 ```javascript
@@ -56,8 +61,9 @@ const arr3 = ['d', 'e'];
 [...arr1, ...arr2, ...arr3]	//[ 'a', 'b', 'c', 'd', 'e' ]
 ```
 
-* Array.find()和Array.findIndex()  
+#### find(),findIndex()
 数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。
+
 ```js
 [1, 5, 10, 15].find((value, index, arr) =>{
   return value > 9;
@@ -65,7 +71,9 @@ const arr3 = ['d', 'e'];
 ```
 > 上面代码中，find方法的回调函数可以接受三个参数，依次为当前的值、当前的位置和原数组.
 
-	数组实例的findIndex方法的用法与find方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。
+
+数组实例的findIndex()方法的用法与find()方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。
+
 ```js
 function f(v){
   return v > this.age;
@@ -75,11 +83,48 @@ let person = {name: 'John', age: 20};
 ```
 > 上面的代码中，find函数接收了第二个参数person对象，回调函数中的this对象指向person对象。
 
+#### entries()，keys() 和 values()
 
-* Array.findeIndex()
+上述三个数组实例的方法都用于遍历数组，返回一个遍历器对象，可用`for...of`循环输出该对象的值。
 
+```js
+for (let index of ['a', 'b'].keys()) {
+  console.log(index);
+}
+// 0
+// 1
+// keys()输出的是对键名遍历的结果
 
+for (let elem of ['a', 'b'].values()) {
+  console.log(elem);
+}
+// 'a'
+// 'b'
+// values()输出的是对键值遍历的结果
 
+for (let [index, elem] of ['a', 'b'].entries()) {
+  console.log(index, elem);
+}
+// 0 "a"
+// 1 "b"
+// values()输出的是对键值对遍历的结果
+```
+
+#### includes()
+数组实例的includes()方法用于判断数组是否包含某个给定的值，返回boolean值。
+
+```js
+[1, 2, 3].includes(2)     // true
+[1, 2, 3].includes(4)     // false
+[1, 2, NaN].includes(NaN) // true
+```
+
+该方法的第二个参数表示搜索的起始位置，默认为`0`。如果第二个参数为负数，则表示倒数的位置，如果这时它大于数组长度（比如第二个参数为`-4`，但数组长度为`3`），则会重置为从`0`开始。
+
+```js
+[1, 2, 3].includes(3, 3);  // false
+[1, 2, 3].includes(3, -1); // true
+```
 
 
 
