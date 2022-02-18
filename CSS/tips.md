@@ -3,7 +3,7 @@
   - [模仿Mac浏览器滚动条样式](#模仿mac浏览器滚动条样式)
   - [定位实现居中](#定位实现居中)
   - [子元素浮动造成父元素高度塌陷问题](#子元素浮动造成父元素高度塌陷问题)
-   
+
 
 ## 一些注意的点
 1. 为第一个子元素设置margin-top时，会作用到父元素上导致上外边距溢出，解决办法：通过伪类给子元素增加一个空的table元素，或者改用padding-top。
@@ -81,6 +81,34 @@
   3. 绝对定位。  
 
 **[⬆ back to top](#TOC)**
+
+# deep深度选择器
+
+```css
+> :deep(.el-tabs__content) {
+    height: 100%;
+    overflow-y: auto;
+}   
+```
+
+**[⬆ back to top](#TOC)**
+
+# css属性选择器
+
+```css
+[class^='el-icon-'] {
+  font-size: 20px;
+}
+```
+
+![](https://cdn.jsdelivr.net/gh/Leonvanx/picgo-repo/image/iShot2022-02-18 16.47.45.jpg)
+
+常见的选择器还有：
+
+- [attribute~=value] 选取属性值中包含指定词汇的元素
+- [attribute|=value]  选取带有以指定值开头的属性值的元素，该值必须是整个单词。
+- [attribute$=value] 匹配属性值以指定值结尾的每个元素
+- [attribute*=value] 匹配属性值中包含指定值的每个元素
 
 ## 弹性盒子布局
 
