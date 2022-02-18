@@ -4,9 +4,9 @@
 - [一些常用ES6语法](#一些常用es6语法)
 	- [数组部分](#数组部分)
 		- [扩展运算符](#扩展运算符)
-		- [find( )和findIndex( )](#find(),findIndex())
-		- [entries(),keys() 和 values()](#entries()，keys() 和 values())
-		- [includes()](#includes())
+		- [find(),findIndex()](#findfindindex)
+		- [entries()，keys() 和 values()](#entrieskeys-和-values)
+		- [includes()](#includes)
 	- [对象部分](#对象部分)
 
 ## 一些注意的点
