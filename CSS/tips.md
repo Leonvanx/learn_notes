@@ -103,7 +103,7 @@
 }
 ```
 
-![](https://cdn.jsdelivr.net/gh/Leonvanx/picgo-repo/image/iShot2022-02-18 16.47.45.jpg)
+![](https://cdn.jsdelivr.net/gh/Leonvanx/picgo-repo/image/202202181735854.png)
 
 常见的选择器还有：
 
