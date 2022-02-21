@@ -1,5 +1,4 @@
-#TOC
-
+TOC
 - [一些注意的点](#一些注意的点)
 - [一些常用ES6语法](#一些常用es6语法)
 	- [数组部分](#数组部分)
@@ -129,4 +128,38 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 
 
 ### 对象部分
+
+#### 属性的简写表达式
+
+```js
+function f(x, y) {
+  return {x, y};
+}
+
+// 等同于
+
+function f(x, y) {
+  return {x: x, y: y};
+}
+
+f(1, 2) // Object {x: 1, y: 2}
+```
+
+方法也可以简写，如下：
+
+```js
+let birth = '2000/01/01';
+
+const Person = {
+
+  name: '张三',
+
+  //等同于birth: birth
+  birth,
+
+  // 等同于hello: function ()...
+  hello() { console.log('我的名字是', this.name); }
+
+};
+```
 
