@@ -7,6 +7,8 @@ TOC
 		- [entries()，keys() 和 values()](#entrieskeys-和-values)
 		- [includes()](#includes)
 	- [对象部分](#对象部分)
+	  * [属性的简写表达式](#属性的简写表达式)
+	  * [属性的遍历](#属性的遍历)
 
 ## 一些注意的点
 1. 时刻注意引用数据类型赋值的问题。
@@ -20,7 +22,7 @@ TOC
 
 #### 扩展运算符
 
-* 函数调用
+1. 函数调用
 
 ```javascript
 function add(x, y, z) {
@@ -29,7 +31,8 @@ function add(x, y, z) {
 const numbers = [4, 38, 45];
 add(...numbers);	//-3
 ```
-* 复制数组  
+2. 复制数组  
+
 > 数组不是基本数据类型，直接用=号赋值，只是拷贝了一份指向底层的数据结构的指针。
 
 ```javascript
@@ -40,6 +43,7 @@ arr2 //0,2,3
 ```
 上述代码中，修改arr1会影响arr2的值。
 使用扩展运算符复制数组。
+
 ```js
 const arr1 = [1, 2];
 // 写法一
@@ -50,8 +54,9 @@ const [...arr2] = arr1;
 此时再修改arr1不会影响arr2的值。
 > 注意，使用此方法拷贝数组依然属于一级浅拷贝，数组内的数据为基本数据类型时不会受影响，当数组内的数据不是基本数据类型时，修改某个引用数据类型的数据的值，依然会造成拷贝出来的数组内的对应数据的值改变。
 
-* 合并数组  
-es5合并需要使用concat函数
+3. 合并数组  
+   es5合并需要使用concat函数
+
 ```js
 //es6则不需要
 const arr1 = ['a', 'b'];
@@ -60,7 +65,10 @@ const arr3 = ['d', 'e'];
 [...arr1, ...arr2, ...arr3]	//[ 'a', 'b', 'c', 'd', 'e' ]
 ```
 
+**[⬆ back to top](#TOC)**
+
 #### find(),findIndex()
+
 数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。
 
 ```js
@@ -81,6 +89,8 @@ let person = {name: 'John', age: 20};
 [10, 12, 26, 15].find(f, person);    // 26
 ```
 > 上面的代码中，find函数接收了第二个参数person对象，回调函数中的this对象指向person对象。
+
+**[⬆ back to top](#TOC)**
 
 #### entries()，keys() 和 values()
 
@@ -109,7 +119,10 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 // values()输出的是对键值对遍历的结果
 ```
 
+**[⬆ back to top](#TOC)**
+
 #### includes()
+
 数组实例的includes()方法用于判断数组是否包含某个给定的值，返回boolean值。
 
 ```js
@@ -125,7 +138,7 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 [1, 2, 3].includes(3, -1); // true
 ```
 
-
+**[⬆ back to top](#TOC)**
 
 ### 对象部分
 
@@ -163,6 +176,8 @@ const Person = {
 };
 ```
 
+**[⬆ back to top](#TOC)**
+
 #### 属性的遍历
 
 ES6一共有五种遍历对象的属性的方法：
@@ -192,3 +207,5 @@ ES6一共有五种遍历对象的属性的方法：
 * 首先遍历所有数值键，按照数值升序排列。
 * 其次遍历所有字符串键，按照加入时间升序排列
 * 最后遍历所有 Symbol 键，按照加入时间升序排列。
+
+**[⬆ back to top](#TOC)**
