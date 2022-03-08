@@ -19,5 +19,5 @@
 5. I18n国际化
    - [`vite-plugin-vue-i18n`](https://github.com/intlify/vite-plugin-vue-i18n) - Vue I18n 的 Vite 插件
 6. [VueUse](https://github.com/antfu/vueuse) - 实用的 Composition API 工具合集
-7. [VueTypes](https://dwightjack.github.io/vue-types/#when-to-use) - a collection of configurable [prop validators ](http://vuejs.org/guide/components.html#Props)for Vue.js, inspired by React `prop-types`.
+7. [VueTypes](https://dwightjack.github.io/vue-types/#when-to-use) - a collection of configurable [prop validators ](http://vuejs.org/guide/components.html#Props)for Vue.js, inspired by React `prop-types`
 
