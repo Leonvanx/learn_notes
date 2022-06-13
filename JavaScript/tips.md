@@ -9,6 +9,7 @@
 		- [includes()](#includes)
 	- [对象部分](#对象部分)
 	  * [属性的简写表达式](#属性的简写表达式)
+	  * [属性的复制](#属性的复制)
 	  * [属性的遍历](#属性的遍历)
 
 ## 一些注意的点
@@ -177,6 +178,25 @@ const Person = {
   hello() { console.log('我的名字是', this.name); }
 
 };
+```
+
+**[⬆ back to top](#TOC)**
+
+#### 属性的复制
+
+方法将所有[可枚举](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/propertyIsEnumerable)（`Object.propertyIsEnumerable()` 返回 true）和[自有](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)（`Object.hasOwnProperty()` 返回 true）属性从一个或多个源对象复制到目标对象，返回修改后的对象。
+
+```js
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget);
+// expected output: Object { a: 1, b: 4, c: 5 }
 ```
 
 **[⬆ back to top](#TOC)**
