@@ -33,4 +33,4 @@ class Square extends Component {
 
 当选择第一种普通函数的方式定义方法时，则需要加.bind(this)绑定。选择第二种箭头函数的方式定义方法时，则不需要（react官方推荐）
 
-造成这种现象的原因：JavaScript关于this指向的问题。（深入研究则包含了JS执行上下文，原型链等等知识）
+造成这种现象的原因：[JavaScript关于this指向的问题](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/)。（深入研究则包含了JS执行上下文，原型链等等知识）
