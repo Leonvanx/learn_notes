@@ -11,6 +11,8 @@
 	  * [属性的简写表达式](#属性的简写表达式)
 	  * [属性的复制](#属性的复制)
 	  * [属性的遍历](#属性的遍历)
+	  * [解构赋值](#解构赋值)
+	  * [扩展运算符](扩展运算符)
 
 ## 一些注意的点
 1. 时刻注意引用数据类型赋值的问题。
@@ -254,6 +256,121 @@ let { ...x } = obj;
 obj.a.b = 2;
 x.a.b // 2
 ```
+
+解构赋值还可以用于方法参数的解构。
+
+🌰一：
+
+假设有以下需求：
+
+如果没有动物，抛出一个异常。
+
+假设动物有类型，名字和性别中的其中任何一个属性，都打印其对应值。
+
+代码如下：
+
+~~~js
+const printAnimalDetails = animal => {
+  let result; // declare a variable to store the final value
+
+  // condition 1: check if animal has a value
+  if (animal) {
+    // condition 2: check if animal has a type property
+    if (animal.type) {
+      // condition 3: check if animal has a name property
+      if (animal.name) {
+        // condition 4: check if animal has a gender property
+        if (animal.gender) {
+          result = ${animal.name} is a ${animal.gender} ${animal.type};;
+        } else {
+          result = "No animal gender";
+        }
+      } else {
+        result = "No animal name";
+      }
+    } else {
+      result = "No animal type";
+    }
+  } else {
+    result = "No animal";
+  }
+  return result;
+};
+
+console.log(printAnimalDetails()); // 'No animal'
+
+console.log(printAnimalDetails({ type: "dog", gender: "female" })); // 'No animal name'
+
+console.log(printAnimalDetails({ type: "dog", name: "Lucy" })); // 'No animal gender'
+
+console.log(
+  printAnimalDetails({ type: "dog", name: "Lucy", gender: "female" })
+); // 'Lucy is a female dog'
+~~~
+
+当我们用解构赋值加上三元运算符等语法重构上面代码后：
+
+~~~js
+const printAnimalDetails = ({type, name, gender } = {}) => {
+  if(!type) return 'No animal type';
+  if(!name) return 'No animal name';
+  if(!gender) return 'No animal gender';
+
+// Now in this line of code, we're sure that we have an animal with all //the three properties here.
+
+  return ${name} is a ${gender} ${type};
+}
+
+console.log(printAnimalDetails()); // 'No animal type'
+
+console.log(printAnimalDetails({ type: dog })); // 'No animal name'
+
+console.log(printAnimalDetails({ type: dog, gender: female })); // 'No animal name'
+
+console.log(printAnimalDetails({ type: dog, name: 'Lucy', gender: 'female' })); // 'Lucy is a female dog'
+~~~
+
+可以看到经过优化后的代码风格精简很多。
+
+> 默认参数确保如果我们传递undefined作为一个方法的参数，我们仍然有值可以解构，在这里它是一个空对象{}。
+
+🌰二：
+
+当使用 JavaScript 工作时，我们总是需要检查 `null/undefined` 值并赋默认值，否则可能编译失败。
+
+例如以下代码：
+
+~~~js
+function printVegetableName(vegetable) { 
+    if (vegetable && vegetable.name) {
+     console.log (vegetable.name);
+   } else {
+    console.log('unknown');
+   }
+}
+
+printVegetableName(undefined); // unknown
+printVegetableName({}); // unknown
+printVegetableName({ name: 'cabbage', quantity: 2 }); // cabbage
+~~~
+
+我们能通过使用默认参数和解构来避免条件语句 `if (vegetable && vegetable.name) {} 。`
+
+~~~js
+// destructing - get name property only
+// assign default empty object {}
+
+function printVegetableName({name} = {}) {
+   console.log (name || 'unknown');
+}
+
+
+printVegetableName(undefined); // unknown
+printVegetableName({ }); // unknown
+printVegetableName({ name: 'cabbage', quantity: 2 }); // cabbage
+~~~
+
+因为我们只需要 `name` 属性，所以我们可以使用 `{ name }` 解构参数，然后我们就能在代码中使用 `name` 作为变量，而不是 `vegetable.name` 。
 
 **[⬆ back to top](#TOC)**
 
