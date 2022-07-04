@@ -14,7 +14,6 @@
 	  * [属性的复制](#属性的复制)
 	  * [属性的遍历](#属性的遍历)
 	  * [解构赋值](#解构赋值)
-	- [Map对象优化Switch语句](#巧用对象字面量或者Map优化Switch)
 	- [可选链和空值合并](#可选链和空值合并)
 
 ## 一些注意的点
@@ -529,3 +528,58 @@ function printFruits(color) {
 }
 ~~~
 
+### 可选链和空值合并
+
+可选链允许我们没有明确检查中间节点是否存在地处理 tree-like 结构，空值合并和可选链组合起来工作得很好，以确保为不存在的值赋一个默认值。
+
+这有一个🌰：
+
+```js
+const car = {
+    model: 'Fiesta',
+    manufacturer: {
+    	name: 'Ford',
+      address: {
+        street: 'Some Street Name',
+        number: '5555',
+        state: 'USA'
+      }
+   }
+} 
+```
+
+上面是定义的一个JavaScript对象。当我们想要打印车辆是否来自美国时，代码将看起来像这样：
+
+```js
+const isManufacturerFromUSA = () => {
+   if(car && car.manufacturer && car.manufacturer.address && 
+ 		 car.manufacturer.address.state === 'USA') {
+     console.log('true');
+   }
+}
+
+checkCarManufacturerState() // 'true'
+```
+
+当嵌套层级比较多时，代码结构会变得非常混乱。
+
+我们使用可选链来优化上述代码。
+
+```js
+// to get the car model
+const model = car?.model ?? 'default model';
+
+// to get the manufacturer street
+const street = car?.manufacturer?.address?.street ?? 'default street';
+
+// to check if the car manufacturer is from the USA
+const isManufacturerFromUSA = () => {
+   if(car?.manufacturer?.address?.state === 'USA') {
+     console.log('true');
+   }
+}
+```
+
+经过优化后的代码变得精简且易读。
+
+> 该特性并未被所有浏览器支持，当需要在较低版本的浏览器运行时，请使用Babel来编译
