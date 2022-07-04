@@ -7,11 +7,15 @@
 		- [find(),findIndex()](#findfindindex)
 		- [entries()，keys() 和 values()](#entrieskeys-和-values)
 		- [includes()](#includes)
+		- [every()](#every)
+		- [some()](#some)
 	- [对象部分](#对象部分)
 	  * [属性的简写表达式](#属性的简写表达式)
 	  * [属性的复制](#属性的复制)
 	  * [属性的遍历](#属性的遍历)
 	  * [解构赋值](#解构赋值)
+	- [Map对象优化Switch语句](#巧用对象字面量或者Map优化Switch)
+	- [可选链和空值合并](#可选链和空值合并)
 
 ## 一些注意的点
 1. 时刻注意引用数据类型赋值的问题。
@@ -140,8 +144,50 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 
 ```js
 [1, 2, 3].includes(3, 3);  // false
-[1, 2, 3].includes(3, -1); // true
+[1, 2, 3].includes(3, -1); // true 
 ```
+
+#### every()
+
+数组实例的every()方法用于判断数组的每一个成员是否符合给定的判断条件。
+
+~~~js
+const fruits = [
+    { name: 'apple', color: 'red' },
+    { name: 'banana', color: 'yellow' },
+    { name: 'grape', color: 'purple' }
+  ];
+
+function test() {
+  // condition: short way, all fruits must be red
+  const isAllRed = fruits.every(f => f.color == 'red');
+
+  console.log(isAllRed); // false
+}
+~~~
+
+上述代码用来检查是否所有的水果都是红色的
+
+#### some()
+
+数组实例的some()方法用于判断数组是否有任何一个成员是否符合给定的判断条件。
+
+~~~js
+const fruits = [
+    { name: 'apple', color: 'red' },
+    { name: 'banana', color: 'yellow' },
+    { name: 'grape', color: 'purple' }
+];
+
+function test() {
+  // condition: if any fruit is red
+  const isAnyRed = fruits.some(f => f.color == 'red');
+
+  console.log(isAnyRed); // true
+}
+~~~
+
+上述代码用来检查是否有水果是红色的
 
 **[⬆ back to top](#TOC)**
 
@@ -413,3 +459,73 @@ let ab = Object.assign({}, a, b);
 ```
 
 **[⬆ back to top](#TOC)**
+
+### 巧用对象字面量和Map优化Switch语句
+
+让我们来看看下面的🌰，我们想要基于颜色打印水果：
+
+```js
+function printFruits(color) {
+  // use switch case to find fruits by color
+  switch (color) {
+    case 'red':
+      return ['apple', 'strawberry'];
+    case 'yellow':
+      return ['banana', 'pineapple'];
+    case 'purple':
+      return ['grape', 'plum'];
+    default:
+      return [];
+  }
+}
+
+printFruits(null); // []
+printFruits('yellow'); // ['banana', 'pineapple']
+```
+
+我们可以使用Map对象来优化上述代码：
+
+```js
+const fruitColor = new Map()
+    .set('red', ['apple', 'strawberry'])
+    .set('yellow', ['banana', 'pineapple'])
+    .set('purple', ['grape', 'plum']);
+
+function printFruits(color) {
+  return fruitColor.get(color) || [];
+}
+```
+
+> `Map` 允许保存键值对，是自从ES2015以来可以使用的对象类型。
+
+还可以使用对象字面量以更清晰的语法实现：
+
+~~~js
+const fruitColor = {
+    red: ['apple', 'strawberry'],
+    yellow: ['banana', 'pineapple'],
+    purple: ['grape', 'plum']
+  };
+
+function printFruits(color) {
+  return fruitColor[color] || [];
+}
+~~~
+
+甚至，你可以使用数组方法 `Array.filter` 来实现。
+
+~~~js
+const fruits = [
+    { name: 'apple', color: 'red' }, 
+    { name: 'strawberry', color: 'red' }, 
+    { name: 'banana', color: 'yellow' }, 
+    { name: 'pineapple', color: 'yellow' }, 
+    { name: 'grape', color: 'purple' }, 
+    { name: 'plum', color: 'purple' }
+];
+
+function printFruits(color) {
+  return fruits.filter(fruit => fruit.color === color);
+}
+~~~
+
