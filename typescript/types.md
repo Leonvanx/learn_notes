@@ -1,11 +1,74 @@
 # TypeScript基本数据类型
 
 1. 基本类型：`string` 、`number` 、`boolean` 、`null` 、`undefined` 、`symbol` 、`bigint`
-
 2. 饮用数据类型：`array` 、`Tuple` 、`object`(包含`Object`和`{}`) 、`function`
-
 3. 特殊类型：`any` 、`unknow` 、`void` 、`never` 、`Enum` 
 4. 其他类型：`类型推理`、`字面量类型`、`交叉类型`
+
+## object,Object和{}类型
+
+1. object，用于表示非原始类型的一个类型
+
+   ```typescript
+   // node_modules/typescript/lib/lib.es5.d.ts
+   interface ObjectConstructor {
+     create(o: object | null): any;
+     // ...
+   }
+   
+   const proto = {};
+   
+   Object.create(proto);     // OK
+   Object.create(null);      // OK
+   Object.create(undefined); // Error
+   Object.create(1337);      // Error
+   Object.create(true);      // Error
+   Object.create("oops");    // Error
+   ```
+
+2. Object,是所有**Object**类的实例的类型，由以下两个接口来定义：
+
+   * `Object `接口定义了 `Object.prototype `原型对象上的属性；
+
+     ```typescript
+     // node_modules/typescript/lib/lib.es5.d.ts
+     interface Object {
+       constructor: Function;
+       toString(): string;
+       toLocaleString(): string;
+       valueOf(): Object;
+       hasOwnProperty(v: PropertyKey): boolean;
+       isPrototypeOf(v: Object): boolean;
+       propertyIsEnumerable(v: PropertyKey): boolean;
+     }
+     ```
+
+   * `ObjectConstructor `接口定义了 `Object `类的属性。
+
+     ```typescript
+     // node_modules/typescript/lib/lib.es5.d.ts
+     interface ObjectConstructor {
+       /** Invocation via `new` */
+       new(value?: any): Object;
+       /** Invocation via function calls */
+       (value?: any): any;
+       readonly prototype: Object;
+       getPrototypeOf(o: any): any;
+       // ···
+     }
+     
+     declare var Object: ObjectConstructor;
+     ```
+
+3. {}类型，描述了一个没有成员的对象。当你试图访问这样一个对象的任意属性时，TypeScript 会产生一个编译时错误。
+
+   ```typescript
+   // Type {}
+   const obj = {};
+   
+   // Error: Property 'prop' does not exist on type '{}'.
+   obj.prop = "semlinker";
+   ```
 
 ## Tuple（元组）
 
