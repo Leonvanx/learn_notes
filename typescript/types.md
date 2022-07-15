@@ -3,7 +3,7 @@
 1. 基本类型：`string` 、`number` 、`boolean` 、`null` 、`undefined` 、`symbol` 、`bigint`
 2. 饮用数据类型：`array` 、`Tuple` 、`object`(包含`Object`和`{}`) 、`function`
 3. 特殊类型：`any` 、`unknow` 、`void` 、`never` 、`Enum` 
-4. 其他类型：`类型推理`、`字面量类型`、`交叉类型`
+4. 其他类型：类型推理、字面量类型、交叉类型、联合类型
 
 ## object,Object和{}类型
 
@@ -193,7 +193,7 @@ const Istudent: student = {
 }
 ```
 
-## 同名基础属性合并
+1. **同名基础属性合并**
 
 当两个同名基础属性合并时，如果是相通的类型，合并后的类型不变，如果是不同的类型，合并后的类型会是`never`。
 
@@ -211,7 +211,7 @@ const student: IStudent = {
 }
 ```
 
-## 同名非基础属性的合并
+2. **同名非基础属性的合并**
 
 当成员类型为非基础同名属性时，能够成功合并。
 
@@ -238,6 +238,12 @@ console.log(student) // { x: { "a": 7, "b": "小红" }}
 ```
 
 > 当A接口的成员是b:number，合并行为会和同名基础属性合并一样，b变为never。
+
+## 联合类型（Union Types）
+
+
+
+
 
 ## type和interface的区别
 
