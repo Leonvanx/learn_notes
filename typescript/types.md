@@ -238,3 +238,40 @@ console.log(student) // { x: { "a": 7, "b": "小红" }}
 ```
 
 > 当A接口的成员是b:number，合并行为会和同名基础属性合并一样，b变为never。
+
+## type和interface的区别
+
+类型别名和接口非常相似，但在特定情况下稍有不同。
+
+1. `type` 和 `interface` 都可以定义对象和函数。
+2. `interface` 可以重复定义，并且会进行合并，`type` 不行。
+3. `type` 可以定义其他数据类型，如字符串、数字、元祖、联合类型等，`interface` 不行。`interface` 和 `type` 相互扩展，但方式不同。`interface` 通过`extends`，`type` 通过 `&`操作符。
+
+```typescript
+// interface 扩展 interface
+interface A {
+  a: string
+}
+interface B extends  A {
+  b: number
+}
+const obj:B = { a: `小杜杜`, b: 7 }
+
+// type 扩展 type
+type C = { a: string }
+type D = C & { b: number }
+const obj1:D = { a: `小杜杜`, b: 7 }
+
+// interface 扩展为 Type
+type E = { a: string }
+interface F extends E { b: number }
+const obj2:F = { a: `小杜杜`, b: 7 }
+
+// type 扩展为 interface
+interface G { a: string }
+type H = G & {b: number}
+const obj3:H = { a: `小杜杜`, b: 7 }
+```
+
+
+
