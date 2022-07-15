@@ -97,5 +97,5 @@ export default function useCount(initialVal: number, range?: Range): Result {
 
 ------
 
-* 在增加 `inc` 和减少 `dec` 的两个函数中增加了 `typeo` 类型守卫检查，因为传入的 `delta` 类型值在某些特定场景下不是很确定，比如在 `template` 中调用方法的话，类型检查可能会失效，传入的类型就是一个原生的 `Event` 。
+* 在增加 `inc` 和减少 `dec` 的两个函数中增加了 `typeof` 类型守卫检查，因为传入的 `delta` 类型值在某些特定场景下不是很确定，比如在 `template` 中调用方法的话，类型检查可能会失效，传入的类型就是一个原生的 `Event` 。
 * 关于 `ref` 类型值，这里并没有特别声明类型，因为 `vue3` 会进行自动类型推导，但如果是复杂类型的话可以采用类型断言的方式： `ref(initObj) as Ref<ObjType>` 
