@@ -1,7 +1,7 @@
 eslint配置：
 
 ```js
-module.exports = {
+export default {
   root: true,
   // 环境，这里可以设置环来做区别判断
   env: {
@@ -101,7 +101,9 @@ stylelint配置：
 }
 ```
 
+记录配置过程中遇到的一个坑：
 
+eslint配置中有 `ignores` 和 `files` 两个选项，选项具体功能见[官方文档](https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new)，当使用 `module.exports` 来导出配置文件时，会发现这两个选项会报错，将 `module.exports` 改为`export default` 即可解决。
 
 
 
