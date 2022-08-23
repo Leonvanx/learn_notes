@@ -60,5 +60,8 @@
 
 ⌘ + f：查找，然后用tab和⇧ + tab可以向右和向左补全，补全之后的内容会被自动复制， 还可以用⌥ + enter将查找结果输入终端
 
+# 常用压缩和打包命令
 
+1. 压缩：tar -zcvf tarame.tar.gz dir/files
+2. 解压： tar -zxvf tarname.tar.gz -C 指定解压后文件存放地址
 
