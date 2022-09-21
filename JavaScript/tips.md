@@ -75,6 +75,12 @@
    [...arr1, ...arr2, ...arr3]	//[ 'a', 'b', 'c', 'd', 'e' ]
    ```
 
+> 扩展运算符内部调用的是数据结构的Iterator接口（**Symbol.iterator**），只要有这个接口的，就可以使用扩展运算符；
+>
+> 没有Iterator接口的，但是具有length属性，就可以使用Array.from转换为数组；
+>
+> 只要是实现了Iterator接口的数据结构，Array.from都能将其转为数组，也能使用扩展运算符。
+
 **[⬆ back to top](#TOC)**
 
 #### find(),findIndex()
