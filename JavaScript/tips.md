@@ -17,6 +17,7 @@
 	- [对象字面量和Map替代Switch](#对象字面量和Map替代Switch)
 	- [可选链和空值合并](#可选链和空值合并)
 - [eval()函数](#eval()函数用法)
+- [JSON.Strify()的坑](#JSON.Strify()实现对象深拷贝的问题 )
 
 ## 一些注意的点
 1. 时刻注意引用数据类型赋值的问题。
@@ -609,3 +610,47 @@ eval('console.log(123)');
 ```
 
 > 当传入的字符串不能识别为js命令时，会将原字符串原样返回
+
+**[⬆ back to top](#TOC)**
+
+### JSON.Strify()实现对象深拷贝的问题
+
+1. 转换值中如果有`toJSON()`方法，该方法的返回值会是最后序列化的值。
+
+2. 被转换值中有`undefined` , `Function` , 以及 `Symbol` 值，这些值会被转换成 `null` 或被忽略转换。
+
+   1. 上述三种类型的值存在于数组中并被序列化，会变转化成null。
+
+      ```js
+      JSON.stringify([undefined, function, Symbol("")]);
+      //[null,null,null]
+      ```
+
+   2. 上述三种类型的值存在于对象中并被序列化时，会被忽略。
+
+      ```js
+      JSON.stringify({ x: undefined, y: Object, z: Symbol("") });
+      // {}
+      ```
+
+   使用`JSON.Strigy()` 的第二个参数 `replacer` 可以解决上述两个问题：
+
+   ```js
+   const testObj = { x: undefined, y: Object, z: Symbol("test") }
+   
+   const resut = JSON.stringify(testObj, function (key, value) {
+     if (value === undefined) {
+       return 'undefined'
+     } else if (typeof value === "symbol" || typeof value === "function") {
+       return value.toString()
+     }
+     return value
+   })
+   
+   console.log(resut)
+   // {"x":"undefined","y":"function Object() { [native code] }","z":"Symbol(test)"}
+   ```
+
+3. 被转换值中有 `NaN`  , `Infinity` 时，序列化后的结果会变成 `null` 。
+
+4. 以 `Symbol` 为属性键的属性都会被忽略掉，即使设置了 `replacer` 参数强制指定包含。
