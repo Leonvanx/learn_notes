@@ -32,3 +32,8 @@ useMemo(() => (
 - 可以减少不必要的循环和不必要的渲染
 - 可以减少子组件的渲染次数
 - 通过特地的依赖进行更新，可以避免很多不必要的开销，但要注意，有时候在配合 `useState`拿不到最新的值，这种情况可以考虑使用 `useRef`解决
+
+## useEffect和useLayoutEffect的区别
+
+1. `useEffect` 是在渲染时异步执行，等到浏览器将所有变化渲染到屏幕后才会被执行。在本次更新完成后，再开启一个任务调度，在下次任务调度中执行。
+2. `useLayoutEffect` 和 `componentDidMount`，`componentDidUpdate` 执行时机一样，在浏览器绘制之前调用，一般用它来同步更新 DOM，在浏览器将所有变化渲染到屏幕之前执行。
