@@ -1,7 +1,7 @@
 # TypeScript基本数据类型
 
 1. 基本类型：`string` 、`number` 、`boolean` 、`null` 、`undefined` 、`symbol` 、`bigint`
-2. 饮用数据类型：`array` 、`Tuple` 、`object`(包含`Object`和`{}`) 、`function`
+2. 引用数据类型：`array` 、`Tuple` 、`object`(包含`Object`和`{}`) 、`function`
 3. 特殊类型：`any` 、`unknow` 、`void` 、`never` 、`Enum` 
 4. 其他类型：类型推理、字面量类型、交叉类型、联合类型
 
