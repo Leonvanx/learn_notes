@@ -33,6 +33,56 @@ useMemo(() => (
 - 可以减少子组件的渲染次数
 - 通过特地的依赖进行更新，可以避免很多不必要的开销，但要注意，有时候在配合 `useState`拿不到最新的值，这种情况可以考虑使用 `useRef`解决
 
+## useCallBack
+
+`useCallback` 与 `useMemo` 极其类似,可以说是一模一样，唯一不同的是 `useMemo` 返回的是函数运行的**结果**，而`useCallback`返回的是**函数**
+
+> 这个函数是**父组件**传递**子组件**的一个函数，防止做无关的刷新，其次，这个组件必须配合 `memo` ,否则不但不会提升性能，还有可能降低性能
+
+```jsx
+import React, { useState, useCallback } from 'react';
+import { Button } from 'antd-mobile';
+
+const MockMemo: React.FC<any> = () => {
+  const [count,setCount] = useState(0)
+  const [show,setShow] = useState(true)
+
+  const  add = useCallback(()=>{
+    setCount(count + 1)
+  },[count])
+
+  return (
+    <div>
+      <div style={{display: 'flex', justifyContent: 'flex-start'}}>
+        <TestButton title="普通点击" onClick={() => setCount(count + 1) }/>
+        <TestButton title="useCallback点击" onClick={add}/>
+      </div>
+      <div style={{marginTop: 20}}>count: {count}</div>
+      <Button onClick={() => {setShow(!show)}}> 切换</Button>
+    </div>
+  )
+}
+
+const TestButton = React.memo((props:any)=>{
+  console.log(props.title)
+  return <Button color='primary' onClick={props.onClick} style={props.title === 'useCallback点击' ? {
+      marginLeft: 20
+    } : undefined}>{props.title}</Button>
+})
+
+export default MockMemo;
+```
+
+我们可以看到，当点击切换按钮的时候，没有经过 `useCallback`封装的函数会再次刷新，而进过过 `useCallback`包裹的函数不会被再次刷新。
+
+## useRef
+
+
+
+
+
+
+
 ## useEffect和useLayoutEffect的区别
 
 1. `useEffect` 是在渲染时异步执行，等到浏览器将所有变化渲染到屏幕后才会被执行。在本次更新完成后，再开启一个任务调度，在下次任务调度中执行。
