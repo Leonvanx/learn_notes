@@ -87,3 +87,89 @@ export default MockMemo;
 
 1. `useEffect` 是在渲染时异步执行，等到浏览器将所有变化渲染到屏幕后才会被执行。在本次更新完成后，再开启一个任务调度，在下次任务调度中执行。
 2. `useLayoutEffect` 和 `componentDidMount`，`componentDidUpdate` 执行时机一样，在浏览器绘制之前调用，一般用它来同步更新 DOM，在浏览器将所有变化渲染到屏幕之前执行。
+
+## forwardRef
+
+1. 获取自定义函数组件的Ref，使用`forwardRef()`。
+
+```jsx
+const Input = forwardRef((props, ref) => {
+  return (
+    <input {...props} ref={ref}>
+  )
+})
+
+class MyComponent extends React.Component {
+
+  constructor() {
+    this.ref = React.createRef(null);
+  }
+
+  clickHandle = () => {
+    // 操作Input组件聚焦
+    this.ref.current.focus();
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.clickHandle}>
+          点击
+        </button>
+        <Input ref={this.ref}>
+      </div>
+    )
+  }
+}
+```
+
+2. class组件则使用`createRef`方法。
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  render() {
+    return <div ref={this.myRef} />;
+  }
+}
+```
+
+## useImperativeHandle
+
+`useImperativeHandle` 可以自定义暴露给父组件的实例属性或者方法，通常与 `forwardRef` 配合使用，其实就是防止 `forwardRef` 暴露过多的组件实例方法或属性给父组件，导致不可预知的错误。
+
+```jsx
+function FancyInput(props, ref) {
+  const inputRef = useRef();
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+  return <input ref={inputRef} ... />;
+}
+
+FancyInput = forwardRef(FancyInput);
+
+class App extends React.Component {
+
+  constructor(props) {
+    this.inputRef = React.createRef(null);
+  }
+
+  componentDidMount() {
+    // 在此处调用foucus方法
+    this.inputRef.current.focus();
+  }
+
+  render() {
+    <div>
+      <FancyInput ref={this.inputRef} />
+    </div>
+  }
+}
+```
+
