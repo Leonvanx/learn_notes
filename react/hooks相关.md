@@ -126,13 +126,19 @@ class MyComponent extends React.Component {
 2. class组件则使用`createRef`方法。
 
 ```jsx
-class MyComponent extends React.Component {
+class AutoFocusTextInput extends React.Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
+    this.textInput = React.createRef();
+  }
+
+  componentDidMount() {
+    this.textInput.current.focusTextInput();
   }
   render() {
-    return <div ref={this.myRef} />;
+    return (
+      <CustomTextInput ref={this.textInput} />
+    );
   }
 }
 ```
