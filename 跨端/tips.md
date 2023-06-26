@@ -25,13 +25,13 @@
 
        有以下方法：
 
-       `navigateTo,redirectTo,switchTab,reLaunch`。
+       `navigateTo` , `redirectTo` , `switchTab` , `reLaunch`。
 
        区别：
 
-       navigateTo, redirectTo 只能打开`非 Tab`页面，`可传参`。
-       switchTab 只能打开`Tab`页面，`不可传参`。
-       reLaunch 可以打开`任意页面，可传参`。
+       > navigateTo, redirectTo 只能打开 `非 Tab` 页面，`可` 传参。
+       > switchTab 只能打开 `Tab` 页面，`不可` 传参。
+       > reLaunch 可以打开 `任意` 页面，`可` 传参。
 
        ```js
        methods: {
@@ -79,6 +79,53 @@
        ```
 
   - 传参数
-
-
+  
+    1. navigator组件跳转
+  
+       传值页面以`?`分割，`?`后面为页面所传递的值，多个值之间以`&`间隔
+  
+       ```XML
+       <view>
+           <navigator url="../detail/detail?id=10&name=test">跳转详情页</navigator>
+       </view>
+       ```
+  
+       接受页面使用 `onLoad` 页面生命周期钩子
+  
+       ```js
+       <script>
+       	export default {
+       		onLoad(options) {
+           		//option为object类型，会序列化上个页面传递的参数
+       			console.log(options)
+       		}
+       	}
+       </script>
+       ```
+  
+    2. API跳转
+  
+       ```javascript
+       toDetail() {
+       	uni.navigateTo({
+       		url: '../detail/detail?id=10&name=test'
+       	})
+       }
+       ```
+  
+       接收页面使用 `onLoad` 页面生命周期钩子
+  
+       ```js
+       toDetail() {
+       	uni.navigateTo({
+       		url: '../detail/detail?id=10&name=test'
+       	})
+       }
+       ```
+  
+       接收页面使用 `onLoad` 页面生命周期钩子
+  
+       > 注意，传入键值对的值为对象需要使用JSON.stringify才可以在跳转的页面接收到想要的值， 键值对的值为简单数据可以不用。
+  
+       
 
