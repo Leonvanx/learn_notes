@@ -7,6 +7,7 @@
 1. vue2中，在根结点用v-for渲染多个template节点会发现页面不显示，原因是vue2只能有一个根节点。（vue3支持了Fragment便不会再有这个问题）。
 2. router传参应始终使用string类型，若传boolean类型，刷新页面会变成字符串，若传object类型，刷新页面会变成[object]。
 3. 使用router.push(params)方法时，当params为空会跳转一次当前页面，若该页面有数据操作有可能会报错。
+4. props传参，如果参数是对象，设置对象内的新值需要通过 `set` ，否则子组件无法立即获取到更新的数据。
 
 **[⬆ back to top](#TOC)**
 
