@@ -243,9 +243,29 @@ console.log(student) // { x: { "a": 7, "b": "小红" }}
 
 ## 联合类型（Union Types）
 
+联合类型通常与 `null` 或 `undefined` 一起使用：
 
+```typescript
+const sayHello = (name: string | undefined) => {
+  /* ... */
+};
+```
 
+例如，这里 `name` 的类型是 `string | undefined` 意味着可以将 `string` 或 `undefined` 的值传递给`sayHello` 函数。
 
+```typescript
+sayHello("semlinker");
+sayHello(undefined);
+```
+
+通过这个示例，你可以凭直觉知道类型 A 和类型 B 联合后的类型是同时接受 A 和 B 值的类型。此外，对于联合类型来说，你可能会遇到以下的用法：
+
+```typescript
+let num: 1 | 2 = 1;
+type EventNames = 'click' | 'scroll' | 'mousemove'
+```
+
+以上示例中的 `1`、`2` 或 `'click'` 被称为字面量类型，用来约束取值只能是某几个值中的一个。
 
 ## type和interface的区别
 
