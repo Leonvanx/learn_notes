@@ -656,3 +656,51 @@ eval('console.log(123)');
 3. 被转换值中有 `NaN`  , `Infinity` 时，序列化后的结果会变成 `null` 。
 
 4. 以 `Symbol` 为属性键的属性都会被忽略掉，即使设置了 `replacer` 参数强制指定包含。
+
+# weakMap实现深拷贝解决循环引用问题
+
+使用 WeakMap 来实现深拷贝可以解决循环引用的问题。WeakMap 是一种特殊的 Map 类型，它的键是弱引用的，这意味着如果除了 WeakMap 外没有对键对象的引用，那么该对象将会被垃圾回收。
+
+以下是使用 WeakMap 实现深拷贝的示例：
+
+```js
+function deepCopy(obj, map = new WeakMap()) {
+  // 如果是基本数据类型或者 null，则直接返回
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+
+  // 如果已经拷贝过该对象，则直接返回拷贝后的对象
+  if (map.has(obj)) {
+    return map.get(obj);
+  }
+
+  // 根据 obj 的类型创建一个新的对象或数组
+  const newObj = Array.isArray(obj) ? [] : {};
+
+  // 将新对象存储到 map 中，以便后续检查循环引用
+  map.set(obj, newObj);
+
+  // 递归复制 obj 中的属性到 newObj
+  for (let key in obj) {
+    newObj[key] = deepCopy(obj[key], map);
+  }
+
+  return newObj;
+}
+
+// 示例用法
+const obj1 = {
+  a: 1,
+  b: {
+    c: 2,
+    d: [3, 4],
+  },
+};
+
+obj1.e = obj1; // 循环引用
+
+const obj2 = deepCopy(obj1);
+console.log(obj2); // 输出一个与 obj1 完全独立的对象，包括循环引用的处理
+```
+
