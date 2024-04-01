@@ -301,5 +301,70 @@ type H = G & {b: number}
 const obj3:H = { a: `小杜杜`, b: 7 }
 ```
 
+# any，unknow，never三者之间的区别
 
+在 TypeScript 中，`any`、`unknown` 和 `never` 是三种不同的类型。
+
+1. `any`：
+
+   - `any` 类型表示任意类型。当你不确定一个变量的类型时，可以将其标记为 `any` 类型，这样它可以包含任意类型的值。
+
+   - 使用 `any` 类型会关闭 TypeScript 的类型检查，因为它可以接受任何类型的值，这可能会导致运行时错误。
+
+   - 例如：
+
+     ```
+     let myVar: any = 10;
+     myVar = 'Hello'; // 合法，因为 myVar 是 any 类型
+     ```
+
+     
+
+2. `unknown`：
+
+   - `unknown` 类型也表示任意类型，但与 `any` 不同的是，`unknown` 类型是类型安全的。
+
+   - 当你不知道变量的类型，但希望保持类型安全时，可以使用 `unknown` 类型。
+
+   - 与 `any` 类型相比，使用 `unknown` 类型需要在使用之前进行类型检查或类型断言。
+
+   - 例如：
+
+     ```
+     let myVar: unknown = 10;
+     // 使用之前需要进行类型检查或类型断言
+     if (typeof myVar === 'number') {
+       let myNum: number = myVar; // 合法
+     }
+     ```
+
+     
+
+3. `never`：
+
+   - `never` 类型表示那些永远不会发生的值的类型。通常在函数中表示抛出异常或永远不会返回的函数。
+
+   - 当函数抛出异常、进入无限循环或者总是抛出错误时，会导致该函数返回 `never` 类型。
+
+   - 例如：
+
+     ```
+     function throwError(message: string): never {
+       throw new Error(message);
+     }
+     
+     function infiniteLoop(): never {
+       while (true) {
+         // 无限循环
+       }
+     }
+     ```
+
+     
+
+总结：
+
+- `any` 类型是 TypeScript 中的一种通用类型，可以接受任何类型的值，但不是类型安全的。
+- `unknown` 类型也可以接受任何类型的值，但在使用时需要进行类型检查或类型断言，是类型安全的。
+- `never` 类型表示那些永远不会发生的值的类型，在函数中表示抛出异常或永远不会返回的函数。
 
