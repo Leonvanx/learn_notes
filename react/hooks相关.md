@@ -75,6 +75,20 @@ export default MockMemo;
 
 我们可以看到，当点击切换按钮的时候，没有经过 `useCallback`封装的函数会再次刷新，而进过过 `useCallback`包裹的函数不会被再次刷新。
 
+# memo
+
+`memo` 是React提供的一个高阶组件，用于记忆函数式组件。它类似于类组件中的 `PureComponent`。当你使用 `memo` 包裹一个函数式组件时，React会记忆组件，只有在其 props 发生变化时才重新渲染组件。这是一个避免函数式组件不必要重新渲染的性能优化。以下是示例：
+
+```react
+const MyMemoizedComponent = React.memo(function MyComponent(props) {
+  // 组件逻辑
+});
+```
+
+在这个示例中，`MyComponent` 是一个函数式组件，通过 `React.memo` 包裹，使得它只有在 `props` 改变时才会重新渲染。
+
+总结一下，`useMemo` 和 `useCallback` 是用于函数式组件的Hook，分别用于记忆值和函数；而 `memo` 是一个高阶组件，用于记忆函数式组件本身。它们都有助于通过避免不必要的重新计算和渲染来优化React应用的性能。
+
 ## useRef
 
 https://juejin.cn/post/6950464567847682056#heading-10
