@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+.countries-list{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.country-card{
+  cursor: pointer;
+}
+.filters{
+  margin-top: 10px;
+}
+.user-card{
+  margin: 10px 0;
+}
+/* .users-list li{
+  border-bottom: 1px solid gainsboro;
+} */
