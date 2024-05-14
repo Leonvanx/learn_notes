@@ -313,7 +313,7 @@ const obj3:H = { a: `小杜杜`, b: 7 }
 
    - 例如：
 
-     ```
+     ```typescript
      let myVar: any = 10;
      myVar = 'Hello'; // 合法，因为 myVar 是 any 类型
      ```
@@ -330,7 +330,7 @@ const obj3:H = { a: `小杜杜`, b: 7 }
 
    - 例如：
 
-     ```
+     ```typescript
      let myVar: unknown = 10;
      // 使用之前需要进行类型检查或类型断言
      if (typeof myVar === 'number') {
@@ -348,7 +348,7 @@ const obj3:H = { a: `小杜杜`, b: 7 }
 
    - 例如：
 
-     ```
+     ```typescript
      function throwError(message: string): never {
        throw new Error(message);
      }
@@ -360,7 +360,6 @@ const obj3:H = { a: `小杜杜`, b: 7 }
      }
      ```
 
-     
 
 总结：
 
