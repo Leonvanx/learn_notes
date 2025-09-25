@@ -1,53 +1,25 @@
-# Proxy
+Vue's reactivity core, particularly in Vue 3, utilizes a system based on Dep (Dependency) and Effect to achieve automatic dependency tracking and updates.
 
-```js
-const obj = {
-  count: 1
-};
-const proxy = new Proxy(obj, {
-  get(target, key, receiver) {
-    console.log("这里是get");
-    return Reflect.get(target, key, receiver);
-  },
-  set(target, key, value, receiver) {
-    console.log("这里是set");
-    return Reflect.set(target, key, value, receiver);
-  }
-});
+- **Effect (ReactiveEffect)**: 
 
-console.log(proxy)
-console.log(proxy.count)
-```
+  An effect is a function that performs a side effect and needs to be re-run when its dependencies change. Examples of effects include component render functions, computed properties, and watchers (e.g., `watchEffect`, `watch`). These effects are automatically tracked by Vue. When an effect is actively running, any reactive properties accessed within it are registered as its dependencies.
 
-通过以上Proxy配合Reflect的代码就能实现对对象的拦截
+- **Dep (Dependency Set)**: 
 
-![](https://cdn.jsdelivr.net/gh/Leonvanx/picgo-repo/image/202207131428402.png)
+  A Dep is essentially a `Set` that stores all the effects that depend on a particular reactive property. When a reactive property's value changes, its associated Dep is "triggered," and all the effects within that Dep are re-executed.
 
-但是当对象再嵌套一层级时，就会发现无法拦截了。我们来优化下代码
+How it works:
 
-```js
-const obj = {
-  a: {
-    count: 1
-  }
-};
+- **Tracking Dependencies**: 
 
-function reactive(obj) {
-  return new Proxy(obj, {
-    get(target, key, receiver) {
-      console.log("这里是get");
-      // 判断如果是个对象在包装一次，实现深层嵌套的响应式
-      if (typeof target[key] === "object") {
-        return reactive(target[key]);
-      };
-      return Reflect.get(target, key, receiver);
-    },
-    set(target, key, value, receiver) {
-      console.log("这里是set");
-      return Reflect.set(target, key, value, receiver);
-    }
-  });
-};
-const proxy = reactive(obj);
-```
+  When an effect (e.g., a component's render function) is executed, Vue internally sets a "current active effect."
 
+- **Property Access (Get)**: 
+
+  When a reactive property is accessed within this active effect, Vue's reactivity system (using ES Proxies for `reactive` objects or getters for `ref`s) intercepts the "get" operation. It then adds the currently active effect to the `Dep` associated with that specific property.
+
+- **Property Mutation (Set)**: 
+
+  When a reactive property's value is changed, Vue intercepts the "set" operation. It then retrieves the `Dep` associated with that property and iterates through all the effects stored within it, re-running each one.
+
+This mechanism ensures that only the relevant parts of the application are re-rendered or re-computed when reactive data changes, leading to efficient and performant updates.
