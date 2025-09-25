@@ -23,3 +23,5 @@ How it works:
   When a reactive property's value is changed, Vue intercepts the "set" operation. It then retrieves the `Dep` associated with that property and iterates through all the effects stored within it, re-running each one.
 
 This mechanism ensures that only the relevant parts of the application are re-rendered or re-computed when reactive data changes, leading to efficient and performant updates.
+
+![](https://s2.loli.net/2025/09/25/PQk2hnNerbCqxgl.png)
